@@ -1,10 +1,12 @@
 'use strict';
 
 //Selecting elements
-const player1Score = document.querySelector('#score--0');
-const player2Score = document.querySelector('#score--1');
-const currentScore1 = document.querySelector('#current--0');
-const currentScore2 = document.querySelector('#current--1');
+const player1 = document.querySelector('.player--1');
+const player2 = document.querySelector('.player--2');
+const player1Score = document.getElementById('score--1');
+const player2Score = document.getElementById('score--2');
+const currentScore1 = document.getElementById('current--1');
+const currentScore2 = document.getElementById('current--2');
 const dice = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
@@ -15,7 +17,9 @@ player1Score.textContent = 0;
 player2Score.textContent = 0;
 dice.classList.add('hidden');
 
+const scores = [0, 0];
 let currentScore = 0;
+let activePlayer = 1;
 
 //Rolling dice functionality
 btnRoll.addEventListener('click', () => {
@@ -25,9 +29,14 @@ btnRoll.addEventListener('click', () => {
 
   if (diceNumber !== 1) {
     currentScore += diceNumber;
-    currentScore1.textContent = currentScore;
+    document.getElementById(`current--${activePlayer}`).textContent =
+      currentScore;
   } else {
     currentScore = 0;
-    currentScore1.textContent = currentScore;
+    document.getElementById(`current--${activePlayer}`).textContent =
+      currentScore;
+    activePlayer = activePlayer === 1 ? 2 : 1;
+    player1.classList.toggle('player--active');
+    player2.classList.toggle('player--active');
   }
 });
